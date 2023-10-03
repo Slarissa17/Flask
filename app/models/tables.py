@@ -6,12 +6,14 @@ class User(db.Model):
     nome_completo = db.Column(db.String(200))
     idade = db.Column(db.Integer)
     sexo = db.Column(db.String(9))
+    cpf = db.Column(db.String(11), unique=True)
 
 
-    def __init__(self, nome_completo, idade, sexo): # O que vai receber quando a classe (user) for inicializada
+    def __init__(self, nome_completo, idade, sexo, cpf): # O que vai receber quando a classe (user) for inicializada
         self.nome_completo = nome_completo
         self.idade = idade
         self.sexo = sexo
+        self.cpf = cpf
         
 
     def __repr__(self): # Representação do objeto
@@ -20,7 +22,7 @@ class User(db.Model):
 class Variante(db.Model):
     __tablename__ = "variantes"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    cromossomo = db.Column(db.String(2))
+    cromossomo = db.Column(db.String(4))
     posicao = db.Column(db.Integer)
     base_ref = db.Column(db.String(1))
     base_alt = db.Column(db.String(1))

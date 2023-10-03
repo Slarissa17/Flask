@@ -6,12 +6,48 @@
     <form action="" method="POST">
         {{ form.csrf_token }}
         <div class="form-group">
-            <label for="nome">Nome Completo</label>
+            <label for="nomeCompleto">Nome Completo</label>
             {{ form.nomeCompleto(class="form-control", placeholder="") }}
+            {% if form.errors.nomeCompleto %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in form.errors.nomeCompleto%}
+                        <li>{{ e }}</li>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+
+                </ul>
         </div>
         <div class="form-group">
             <label for="idade">Idade</label>
-            {{ form.nomeCompleto(class="form-control", placeholder="") }}
+            {{ form.idade(class="form-control", placeholder="") }}
+            {% if form.errors.idade %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in form.errors.idade%}
+                        <li>{{ e }}</li>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+
+                </ul>
+               
+            
+        </div>
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            {{ form.cpf(class="form-control", placeholder="11111111111") }}
+            {% if form.errors.cpf %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in form.errors.cpf%}
+                        <li>{{ e }}</li>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+
+                </ul>
         </div>
         <div class="form-group">
             <label for="{{ form.sexo.id }}">Selecione o gênero:</label>
