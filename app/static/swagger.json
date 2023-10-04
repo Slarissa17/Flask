@@ -1,0 +1,15 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "description": "sean",
+      "version": "1.0.0",
+      "title": "sean",
+      "contatc": {
+        "email": "lssouza.batista@gmail.com"
+      },
+      "license": {
+        "name": "teste",
+        "uri": "/static/swagger.json"
+      }
+    }
+}

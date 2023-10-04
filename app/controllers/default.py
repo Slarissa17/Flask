@@ -1,10 +1,23 @@
 from app import app, db
 from flask import request, jsonify
+from flask import send_from_directory
+from flask_swagger_ui import get_swaggerui_blueprint
+
 
 from app.models.tables import User, Variante
 from app.models.forms import FormPaciente
 
+@app.route('/static/<path:path>') #ROTA PARA ACESSAR ARQUIVOS ESTÁTICOS
+def send_static(path):
+    return send_from_directory('static', path)
 
+SWAGGER_URL = '/swagger' #URL PARA ACESSAR A DOCUMENTAÇÃO
+API_URL = '/static/swagger.json' #ARQUIVO JSON COM A DOCUMENTAÇÃO
+swaggerui_blueprint = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Test application"})
 
 @app.route('/user/<cpf>')  #CONSULTA USÁRIO PELO CPF
 def get_user(cpf):
