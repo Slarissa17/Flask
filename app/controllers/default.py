@@ -2,22 +2,22 @@ from app import app, db
 from flask import request, jsonify
 from flask import send_from_directory
 from flask_swagger_ui import get_swaggerui_blueprint
-
-
 from app.models.tables import User, Variante
 from app.models.forms import FormPaciente
 
-@app.route('/static/<path:path>') #ROTA PARA ACESSAR ARQUIVOS ESTÁTICOS
-def send_static(path):
-    return send_from_directory('static', path)
 
-SWAGGER_URL = '/swagger' #URL PARA ACESSAR A DOCUMENTAÇÃO
-API_URL = '/static/swagger.json' #ARQUIVO JSON COM A DOCUMENTAÇÃO
-swaggerui_blueprint = get_swaggerui_blueprint(
+### swagger specific ###
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
     SWAGGER_URL,
     API_URL,
     config={
-        'app_name': "Test application"})
+        'app_name': "Seans-Python-Flask-REST-Boilerplate"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+### end swagger specific ###
 
 @app.route('/user/<cpf>')  #CONSULTA USÁRIO PELO CPF
 def get_user(cpf):
@@ -34,13 +34,13 @@ def get_user(cpf):
         return jsonify({'message': 'Usuário não encontrado'}), 404
 
 
-@app.route('/user/<cpf>/variante') #CONSULTA VARIANTES DO USUÁRIO PELO CPF
-def get_user_variantes(cpf):
-    user = User.query.filter_by(cpf=cpf).first()
+@app.route('/user/<id>/variante') #CONSULTA VARIANTES DO USUÁRIO PELO CPF
+def get_user_variantes(id):
+    user = User.query.filter_by(id=User.id).first()
 
     if user is None:
         return jsonify({'message': 'Usuário não encontrado'}), 404
-    variantes = Variante.query.filter_by(user_id=user.id).all()
+    variantes = Variante.query.filter_by(id=Variante.user_id).all()
 
     variantes_data = []
     for variante in variantes:
@@ -52,6 +52,7 @@ def get_user_variantes(cpf):
         })
 
     return jsonify(variantes_data)
+    
 
 @app.route('/user', methods=['POST']) #CADASTRA USUÁRIO
 def create_user():

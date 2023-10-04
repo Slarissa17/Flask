@@ -1,15 +1,366 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "description": "sean",
-      "version": "1.0.0",
-      "title": "sean",
-      "contatc": {
-        "email": "lssouza.batista@gmail.com"
+  "openapi": "3.0.0",
+  "info": {
+    "description": "PROCESSO SELETIVO EINSTEIN",
+    "version": "1.0.0",
+    "title": "Laboratory Information System",
+    "license": {
+      "name": "Larissa",
+      "uri": "/static/swagger.json"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "LIS API",
+      "description": "Exemplo de API para o processo seletivo do Einstein"
+    }
+  ],
+  "paths": {
+    "/user/{cpf}": {
+      "get": {
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "summary": "Consultar informações do paciente pelo CPF cadastrado",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF do paciente",
+            "schema": {
+              "type": "string",
+              "example": "123.456.789-01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          }
+        }
       },
-      "license": {
-        "name": "teste",
-        "uri": "/static/swagger.json"
+      "put": {
+        "summary": "Editar informações do paciente pelo CPF cadastrado",
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF do paciente",
+            "schema": {
+              "type": "string",
+              "example": "123.456.789-01"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "É necessário informar o nome do paciente, idade, sexo e CPF",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "summary": "Excluir um paciente pelo CPF cadastrado",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF do paciente",
+            "schema": {
+              "type": "string",
+              "example": "123.456.789-01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Paciente não encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{cpf}/variante": {
+      "get": {
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "summary": "Consultar informações das variantes de um paciente pelo CPF cadastrado",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF do paciente",
+            "schema": {
+              "type": "string",
+              "example": "123.456.789-01"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userVariante"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "summary": "Criar uma nova variante para um paciente",
+        "requestBody": {
+          "description": "É necessário informar o CPF do paciente, cromossomo, posição, base de referência e base alternativa da variante",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userVariante"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "summary": "Editar uma variante de um paciente pelo CPF cadastrado",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF do paciente",
+            "schema": {
+              "type": "string",
+              "example": "123.456.789-01"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "É necessário informar o CPF do paciente, cromossomo, posição, base de referência e base alternativa da variante",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userVariante"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Paciente ou variante não encontrados"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "REQUISIÇÕES DE PACIENTES"
+        ],
+        "summary": "Deletar uma variante de um paciente pelo CPF cadastrado",
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "path",
+            "required": true,
+            "description": "CPF do paciente",
+            "schema": {
+              "type": "string",
+              "example": "123.456.789-01"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "É necessário informar o CPF do paciente e a posição da variante a ser deletada",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/deleteVariante"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Failed. Bad request data."
+          },
+          "404": {
+            "description": "Paciente ou variante não encontrados"
+          }
+        }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "cpf": {
+        "type": "string"
+      },
+      "user": {
+        "type": "object",
+        "properties": {
+          "nome_completo": {
+            "type": "string",
+            "description": "Nome completo do paciente"
+          },
+          "idade": {
+            "type": "integer",
+            "description": "Idade do paciente"
+          },
+          "sexo": {
+            "type": "string",
+            "enum": ["Masculino", "Feminino", "Outro"],
+            "description": "Sexo do paciente"
+          },
+          "cpf": {
+            "type": "string",
+            "pattern": "^[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}$",
+            "description": "CPF do paciente"
+          }
+        },
+        "required": ["nome_completo", "idade", "sexo", "cpf"]
+      },
+      "userVariante": {
+        "type": "object",
+        "properties": {
+          "cpf_paciente": {
+            "type": "string",
+            "description": "CPF do paciente"
+          },
+          "cromossomo": {
+            "type": "string",
+            "description": "Cromossomo"
+          },
+          "posicao": {
+            "type": "integer",
+            "description": "Posição"
+          },
+          "base_ref": {
+            "type": "string",
+            "description": "Base de referência"
+          },
+          "base_alt": {
+            "type": "string",
+            "description": "Base alternativa"
+          }
+        }
+      },
+      "deleteVariante": {
+        "type": "object",
+        "properties": {
+          "posicao": {
+            "type": "integer",
+            "description": "Posição da variante a ser deletada"
+          }
+        },
+        "required": ["posicao"]
+      }
+    }
+  }
 }
